@@ -31,7 +31,7 @@ protected:
 	virtual void SetupInputComponent() override;
 	
 	void OnInputMoveTriggered(const FInputActionValue& Value);
-	void OnInputLookTriggered();
+	void OnInputLookTriggered(const FInputActionValue& Value);
 	void OnInputJumpStarted();
 	void OnInputSprintStarted();
 	void OnInputInteractionStarted();

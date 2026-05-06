@@ -3,6 +3,8 @@
 
 #include "SSPlayerController.h"
 
+#include "GameFramework/Character.h"
+
 void ASSPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -51,12 +53,31 @@ void ASSPlayerController::SetupInputComponent()
 void ASSPlayerController::OnInputMoveTriggered(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Input Move"))
+	
+	FVector2D MovementVector = Value.Get<FVector2D>();
+	
+	const FRotator Rotation = GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
+	
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	
+	GetCharacter()->AddMovementInput(ForwardDirection, MovementVector.Y);
+	GetCharacter()->AddMovementInput(RightDirection, MovementVector.X);
+	
+	
 }
 
-void ASSPlayerController::OnInputLookTriggered()
+void ASSPlayerController::OnInputLookTriggered(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Input Look"))
 	
+	FVector2D LookAxisVector = Value.Get<FVector2D>();
+	
+	UE_LOG(LogTemp, Warning, TEXT("%s"),*LookAxisVector.ToString());
+	AddYawInput(LookAxisVector.X);
+	AddPitchInput(LookAxisVector.Y);
 }
 
 void ASSPlayerController::OnInputJumpStarted()
