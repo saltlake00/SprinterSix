@@ -52,19 +52,25 @@ void ASSPlayerController::SetupInputComponent()
 
 void ASSPlayerController::OnInputMoveTriggered(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp,Warning,TEXT("Input Move"))
+	UE_LOG(LogTemp,Warning,TEXT("Input Move"));
 	
+	//입력값 2D벡터 수신
 	FVector2D MovementVector = Value.Get<FVector2D>();
+	UE_LOG(LogTemp, Warning, TEXT("%s"),*MovementVector.ToString());
 	
+	//컨트롤러 회전값 수신
 	const FRotator Rotation = GetControlRotation();
+	//회전값 중 Z회전(Yaw)만 남김
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
 	
+	//전방 방향
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	
+	//우측 방향 (x축)
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	
-	GetCharacter()->AddMovementInput(ForwardDirection, MovementVector.Y);
-	GetCharacter()->AddMovementInput(RightDirection, MovementVector.X);
+	GetCharacter()->AddMovementInput(ForwardDirection, MovementVector.X);
+	GetCharacter()->AddMovementInput(RightDirection, MovementVector.Y);
 	
 	
 }
