@@ -4,12 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 
 #include "SSPlayerController.generated.h"
 
+class ASSCharacter;
 class UInputMappingContext;
 class UInputAction;
 class UInputComponent;
@@ -26,16 +26,16 @@ protected:
 
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
-	
+
 protected:
 	virtual void SetupInputComponent() override;
-	
+
 	void OnInputMoveTriggered(const FInputActionValue& Value);
 	void OnInputLookTriggered(const FInputActionValue& Value);
 	void OnInputJumpStarted();
-	void OnInputSprintStarted();
+	void OnInputSprint(const FInputActionInstance& Instance);
 	void OnInputInteractionStarted();
-	
+
 	// input mapping	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
@@ -55,4 +55,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	TObjectPtr<UInputAction> InteractionAction;
+
+	UPROPERTY()
+	TObjectPtr<ASSCharacter> PlayerCharacter;
 };

@@ -3,30 +3,34 @@
 
 #include "SSCharacter.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
 
-// Sets default values
+
 ASSCharacter::ASSCharacter()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-// Called when the game starts or when spawned
 void ASSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	NormalSpeed = GetCharacterMovement()->MaxWalkSpeed;
 }
 
-// Called every frame
 void ASSCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-// Called to bind functionality to input
-void ASSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ASSCharacter::SetSprint(bool bActive)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	if (bActive)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+	}
+	else
+	{
+		GetCharacterMovement()->MaxWalkSpeed = NormalSpeed;
+	}
 }
-

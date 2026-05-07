@@ -12,17 +12,20 @@ class SPRINTERSIX_API ASSCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ASSCharacter();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void SetSprint(bool bActive);
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sprint)
+	float SprintSpeed = 1000;
+
+	UPROPERTY()
+	float NormalSpeed;
 };
