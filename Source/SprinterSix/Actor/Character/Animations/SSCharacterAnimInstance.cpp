@@ -16,7 +16,7 @@ void USSCharacterAnimInstance::NativeInitializeAnimation()
 	{
 		return;
 	}
-	
+
 	CharacterMovement = PlayerCharacter->GetCharacterMovement();
 }
 
@@ -47,10 +47,7 @@ void USSCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	bool bMoving = FMath::IsNearlyZero(GroundSpeed) == false;
 	bool bAccelerating = CharacterMovement->GetCurrentAcceleration().IsNearlyZero() == false;
 
-	if (bMoving && bAccelerating)
-	{
-		bShouldMove = true;
-	}
+	bShouldMove = bMoving && bAccelerating;
 
 	bIsFalling = CharacterMovement->IsFalling();
 }
