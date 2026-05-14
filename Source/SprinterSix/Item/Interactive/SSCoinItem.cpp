@@ -9,4 +9,6 @@ ASSCoinItem::ASSCoinItem()
 {
 }
 
-
+void ASSCoinItem::Activate(ASSCharacter* Character)
+{
+}

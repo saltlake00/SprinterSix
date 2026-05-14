@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "SSBaseItem.generated.h"
 
+class ASSCharacter;
 class USphereComponent;
 
 DECLARE_MULTICAST_DELEGATE(FOnItemActivated);
@@ -22,22 +23,17 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	virtual void Activate(ASSCharacter* Character);
+	virtual void OnPostActivated();
 
-	// Interface 상속 함수
 public:
-	virtual void OnItemOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	                           int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	virtual void OnCollisionBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	                                     UPrimitiveComponent* OtherComp,
+	                                     int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 public:
 	FOnItemActivated ItemActivated;
-
-	// 값 복사 (call by value)
-	void Foo(FOnItemActivated ItemActivated);
-	// 참조 - 복사 x 전달 / call by reference
-	void FooBar(FOnItemActivated& ItemActivated);
-
-	// 주소 복사 (call by pointer)
-	void Bar(FOnItemActivated* ItemActivated);
 
 protected:
 	// 루트 컴포넌트 콜리전으로 변경
@@ -46,8 +42,4 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item | Component")
 	TObjectPtr<UStaticMeshComponent> StaticMeshComp;
-
-
-	UStaticMeshComponent& StaticMeshCompRef;
-	// null x
 };

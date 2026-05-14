@@ -15,14 +15,23 @@ public:
 	// Sets default values for this actor's properties
 	ASSMineItem();
 
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item|Component")
+	USphereComponent* ExplosionCollision;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine")
-	float ExplosionDelay;
+	float ExplosionDelay = 5.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine")
-	float ExplosionRadius;
+	float ExplosionRadius = 300.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine")
-	float ExplosionDamage;
+	int ExplosionDamage = 30;
+
+protected:
+	FTimerHandle ExplosionTimerHandle;
+	void Explode();
 	
-	virtual void ActivateItem(AActor* Activator) override;
-	
-	
+protected:
+	virtual void Activate(ASSCharacter* Character) override;
+
+	virtual void OnPostActivated() override;
 };

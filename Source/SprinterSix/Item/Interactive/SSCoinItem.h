@@ -6,6 +6,8 @@
 #include "Item/SSBaseItem.h"
 #include "SSCoinItem.generated.h"
 
+class ASSCharacter;
+
 UCLASS()
 class SPRINTERSIX_API ASSCoinItem : public ASSBaseItem
 {
@@ -16,7 +18,8 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Item")
-	int32 PointValue;
-
-public:
+	int32 PointValue = 10;
+	
+protected:
+	virtual void Activate(ASSCharacter* Character) override;
 };
