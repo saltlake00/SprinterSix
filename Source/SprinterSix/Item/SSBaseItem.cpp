@@ -10,13 +10,23 @@ ASSBaseItem::ASSBaseItem()
 	// 틱 사용 하지 않을 예정이므로 false로 틱 사용 꺼줌
 	PrimaryActorTick.bCanEverTick = false;
 	
-	//scene 컴포넌트(트랜스폼 데이터) 추가후 루트로 설정
-	Scene = CreateDefaultSubobject<USceneComponent>(TEXT("Scene"));
-	SetRootComponent(Scene);
+	// 루트을 콜리전으로 변경
+	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
+	CollisionComp->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+	RootComponent = CollisionComp;
 	
-	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
-	Collision->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
-	Collision->SetupAttachment(Scene);
+}
+
+void ASSBaseItem::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &)
+}
+
+void ASSBaseItem::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
 }
 
 void ASSBaseItem::OnItemOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool
@@ -25,24 +35,18 @@ void ASSBaseItem::OnItemOverlap(UPrimitiveComponent* OverlappedComp, AActor* Oth
 	// 오버랩 이벤트 -> 자식 클래스에서 구현
 }
 
-void ASSBaseItem::OnItemEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void ASSBaseItem::Foo(FOnItemActivated ItemActivated)
 {
-	// 오버랩 벗어나면 이벤트
+	ItemActivated.Broadcast();
 }
 
-void ASSBaseItem::ActivateItem(AActor* Activator)
+void ASSBaseItem::FooBar(FOnItemActivated& ItemActivated)
 {
-	// 사용시 이벤트
+	ItemActivated.Broadcast();
 }
 
-FName ASSBaseItem::GetItemType() const
+void ASSBaseItem::Bar(FOnItemActivated* ItemActivated)
 {
-	// void가 아닌 FName 타입 함수라 자료형 멤버변수 그대로 리턴
-	return ItemType;
+	ItemActivated->Broadcast();
 }
 
-void ASSBaseItem::DestroyItem()
-{
-	// 소멸자 호출, 추가로 이펙트 등 구현가능
-	Destroy();
-}
