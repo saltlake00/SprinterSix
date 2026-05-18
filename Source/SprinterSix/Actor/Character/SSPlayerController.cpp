@@ -54,17 +54,14 @@ void ASSPlayerController::SetupInputComponent()
 	EnhancedInputComp->BindAction(JumpAction, ETriggerEvent::Started, this, &ThisClass::OnInputJumpStarted);
 	EnhancedInputComp->BindAction(SprintAction, ETriggerEvent::Started, this, &ThisClass::OnInputSprint);
 	EnhancedInputComp->BindAction(SprintAction, ETriggerEvent::Completed, this, &ThisClass::OnInputSprint);
-	EnhancedInputComp->BindAction(InteractionAction, ETriggerEvent::Started, this,
-	                              &ThisClass::OnInputInteractionStarted);
+	EnhancedInputComp->BindAction(InteractionAction, ETriggerEvent::Started, this, &ThisClass::OnInputInteractionStarted);
 }
 
 void ASSPlayerController::OnInputMoveTriggered(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Input Move"));
 
 	//입력값 2D벡터 수신
 	FVector2D MovementVector = Value.Get<FVector2D>();
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *MovementVector.ToString());
 
 	//컨트롤러 회전값 수신
 	const FRotator Rotation = GetControlRotation();
@@ -83,11 +80,9 @@ void ASSPlayerController::OnInputMoveTriggered(const FInputActionValue& Value)
 
 void ASSPlayerController::OnInputLookTriggered(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Input Look"))
 
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *LookAxisVector.ToString());
 	AddYawInput(LookAxisVector.X);
 	AddPitchInput(LookAxisVector.Y);
 }

@@ -9,9 +9,6 @@
 class ASSCharacter;
 class USphereComponent;
 
-DECLARE_MULTICAST_DELEGATE(FOnItemActivated);
-
-
 UCLASS()
 class SPRINTERSIX_API ASSBaseItem : public AActor
 {
@@ -33,7 +30,6 @@ public:
 	                                     int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 public:
-	FOnItemActivated ItemActivated;
 
 protected:
 	// 루트 컴포넌트 콜리전으로 변경

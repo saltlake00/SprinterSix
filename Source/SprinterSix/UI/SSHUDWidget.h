@@ -3,15 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameModeBase.h"
-#include "SSPlayGameMode.generated.h"
+#include "CommonUserWidget.h"
+#include "SSHUDWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SPRINTERSIX_API ASSPlayGameMode : public AGameModeBase
+class SPRINTERSIX_API USSHUDWidget : public UCommonUserWidget
 {
 	GENERATED_BODY()
-	ASSPlayGameMode();
+
+public:
+	void NativeConstruct();
 };

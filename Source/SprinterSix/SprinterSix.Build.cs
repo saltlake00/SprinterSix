@@ -21,8 +21,13 @@ public class SprinterSix : ModuleRules
 			"Slate"
 		});
 
-		PrivateDependencyModuleNames.AddRange(new string[] { });
-
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"CommonUI",
+			"CommonInput",
+			"UMG"
+		});
+		
 		PublicIncludePaths.AddRange(new string[] {
 			ModuleDirectory,
 			"SprinterSix",
@@ -42,6 +47,7 @@ public class SprinterSix : ModuleRules
 			"SprinterSix/_Example/Variant_SideScrolling/UI"
 		});
 
+		
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 

@@ -17,6 +17,7 @@ ASSBaseItem::ASSBaseItem()
 	RootComponent = CollisionComp;
 
 	StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+	StaticMeshComp->SetCollisionProfileName(TEXT("NoCollision"));
 	StaticMeshComp->SetupAttachment(CollisionComp);
 }
 
