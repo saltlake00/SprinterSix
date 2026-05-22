@@ -14,6 +14,6 @@ class SPRINTERSIX_API USSHUDWidget : public UCommonUserWidget
 {
 	GENERATED_BODY()
 
-public:
+protected:
 	void NativeConstruct();
 };
